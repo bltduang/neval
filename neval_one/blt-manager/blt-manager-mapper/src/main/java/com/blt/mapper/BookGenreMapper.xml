@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blt.mapper.BookGenreMapper" >
+  <resultMap id="BaseResultMap" type="com.blt.pojo.BookGenre" >
+    <id column="bookid" property="bookid" jdbcType="BIGINT" />
+    <result column="categoryCode" property="categorycode" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="imgUrl" property="imgurl" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="chapterNum" property="chapternum" jdbcType="INTEGER" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="BIGINT" />
+    <result column="bookType" property="booktype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bookid, categoryCode, title, imgUrl, category, chapterNum, author, updateTime, bookType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.blt.pojo.BookGenreExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from book_genre
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from book_genre
+    where bookid = #{bookid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from book_genre
+    where bookid = #{bookid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.blt.pojo.BookGenreExample" >
+    delete from book_genre
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.blt.pojo.BookGenre" >
+    insert into book_genre (bookid, categoryCode, title, 
+      imgUrl, category, chapterNum, 
+      author, updateTime, bookType
+      )
+    values (#{bookid,jdbcType=BIGINT}, #{categorycode,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{imgurl,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{chapternum,jdbcType=INTEGER}, 
+      #{author,jdbcType=VARCHAR}, #{updatetime,jdbcType=BIGINT}, #{booktype,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blt.pojo.BookGenre" >
+    insert into book_genre
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookid != null" >
+        bookid,
+      </if>
+      <if test="categorycode != null" >
+        categoryCode,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="imgurl != null" >
+        imgUrl,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="chapternum != null" >
+        chapterNum,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="booktype != null" >
+        bookType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="categorycode != null" >
+        #{categorycode,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null" >
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="chapternum != null" >
+        #{chapternum,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="booktype != null" >
+        #{booktype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.blt.pojo.BookGenreExample" resultType="java.lang.Integer" >
+    select count(*) from book_genre
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update book_genre
+    <set >
+      <if test="record.bookid != null" >
+        bookid = #{record.bookid,jdbcType=BIGINT},
+      </if>
+      <if test="record.categorycode != null" >
+        categoryCode = #{record.categorycode,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgurl != null" >
+        imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chapternum != null" >
+        chapterNum = #{record.chapternum,jdbcType=INTEGER},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="record.booktype != null" >
+        bookType = #{record.booktype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update book_genre
+    set bookid = #{record.bookid,jdbcType=BIGINT},
+      categoryCode = #{record.categorycode,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      chapterNum = #{record.chapternum,jdbcType=INTEGER},
+      author = #{record.author,jdbcType=VARCHAR},
+      updateTime = #{record.updatetime,jdbcType=BIGINT},
+      bookType = #{record.booktype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blt.pojo.BookGenre" >
+    update book_genre
+    <set >
+      <if test="categorycode != null" >
+        categoryCode = #{categorycode,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null" >
+        imgUrl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="chapternum != null" >
+        chapterNum = #{chapternum,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="booktype != null" >
+        bookType = #{booktype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bookid = #{bookid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blt.pojo.BookGenre" >
+    update book_genre
+    set categoryCode = #{categorycode,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      imgUrl = #{imgurl,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      chapterNum = #{chapternum,jdbcType=INTEGER},
+      author = #{author,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=BIGINT},
+      bookType = #{booktype,jdbcType=VARCHAR}
+    where bookid = #{bookid,jdbcType=BIGINT}
+  </update>
+</mapper>

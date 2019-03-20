@@ -1,0 +1,17 @@
+com\blt\rest\service\BookGenreServiceImpl.class
+com\blt\rest\service\BookContentServiceImpl.class
+com\blt\rest\service\BookActicleService.class
+com\blt\rest\service\BookClassifyIndexService.class
+com\tata\dao\JedisClientSingle.class
+com\blt\rest\service\BookActicleServiceImpl.class
+com\blt\rest\service\BookClassifyIndexServiceImpl.class
+com\blt\rest\controller\BookClassifyController.class
+com\blt\rest\pojo\BookClassifyResult.class
+com\blt\rest\service\BookClassifyServiceImpl.class
+com\blt\rest\service\BookClassifyService.class
+com\blt\rest\controller\BookCategoryController.class
+com\blt\rest\controller\BookContentController.class
+com\tata\dao\JedisClient.class
+com\blt\rest\service\BookContentService.class
+com\blt\rest\controller\BookActicleController.class
+com\blt\rest\service\BookGenreService.class

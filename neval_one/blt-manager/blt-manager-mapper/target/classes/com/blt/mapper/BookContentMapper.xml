@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.blt.mapper.BookContentMapper" >
+  <resultMap id="BaseResultMap" type="com.blt.pojo.BookContent" >
+    <id column="digest" property="digest" jdbcType="VARCHAR" />
+    <result column="idx" property="idx" jdbcType="INTEGER" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="bookUUID" property="bookuuid" jdbcType="VARCHAR" />
+    <result column="bookId" property="bookid" jdbcType="BIGINT" />
+    <result column="size" property="size" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.blt.pojo.BookContent" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    digest, idx, source, status, bookUUID, bookId, size
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.blt.pojo.BookContentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from book_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.blt.pojo.BookContentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from book_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from book_content
+    where digest = #{digest,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from book_content
+    where digest = #{digest,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.blt.pojo.BookContentExample" >
+    delete from book_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.blt.pojo.BookContent" >
+    insert into book_content (digest, idx, source, 
+      status, bookUUID, bookId, 
+      size, content)
+    values (#{digest,jdbcType=VARCHAR}, #{idx,jdbcType=INTEGER}, #{source,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{bookuuid,jdbcType=VARCHAR}, #{bookid,jdbcType=BIGINT}, 
+      #{size,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blt.pojo.BookContent" >
+    insert into book_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="digest != null" >
+        digest,
+      </if>
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="bookuuid != null" >
+        bookUUID,
+      </if>
+      <if test="bookid != null" >
+        bookId,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="digest != null" >
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="idx != null" >
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bookuuid != null" >
+        #{bookuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.blt.pojo.BookContentExample" resultType="java.lang.Integer" >
+    select count(*) from book_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update book_content
+    <set >
+      <if test="record.digest != null" >
+        digest = #{record.digest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idx != null" >
+        idx = #{record.idx,jdbcType=INTEGER},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookuuid != null" >
+        bookUUID = #{record.bookuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookid != null" >
+        bookId = #{record.bookid,jdbcType=BIGINT},
+      </if>
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update book_content
+    set digest = #{record.digest,jdbcType=VARCHAR},
+      idx = #{record.idx,jdbcType=INTEGER},
+      source = #{record.source,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      bookUUID = #{record.bookuuid,jdbcType=VARCHAR},
+      bookId = #{record.bookid,jdbcType=BIGINT},
+      size = #{record.size,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update book_content
+    set digest = #{record.digest,jdbcType=VARCHAR},
+      idx = #{record.idx,jdbcType=INTEGER},
+      source = #{record.source,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      bookUUID = #{record.bookuuid,jdbcType=VARCHAR},
+      bookId = #{record.bookid,jdbcType=BIGINT},
+      size = #{record.size,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blt.pojo.BookContent" >
+    update book_content
+    <set >
+      <if test="idx != null" >
+        idx = #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bookuuid != null" >
+        bookUUID = #{bookuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null" >
+        bookId = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where digest = #{digest,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blt.pojo.BookContent" >
+    update book_content
+    set idx = #{idx,jdbcType=INTEGER},
+      source = #{source,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      bookUUID = #{bookuuid,jdbcType=VARCHAR},
+      bookId = #{bookid,jdbcType=BIGINT},
+      size = #{size,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where digest = #{digest,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blt.pojo.BookContent" >
+    update book_content
+    set idx = #{idx,jdbcType=INTEGER},
+      source = #{source,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      bookUUID = #{bookuuid,jdbcType=VARCHAR},
+      bookId = #{bookid,jdbcType=BIGINT},
+      size = #{size,jdbcType=INTEGER}
+    where digest = #{digest,jdbcType=VARCHAR}
+  </update>
+</mapper>

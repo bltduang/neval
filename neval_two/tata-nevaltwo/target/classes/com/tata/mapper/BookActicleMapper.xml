@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tata.mapper.BookActicleMapper" >
+  <resultMap id="BaseResultMap" type="com.tata.pojo.BookActicle" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="bookId" property="bookid" jdbcType="BIGINT" />
+    <result column="idx" property="idx" jdbcType="INTEGER" />
+    <result column="digest" property="digest" jdbcType="VARCHAR" />
+    <result column="bookUUID" property="bookuuid" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="INTEGER" />
+    <result column="rawUrl" property="rawurl" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bookId, idx, digest, bookUUID, title, size, rawUrl, source, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tata.pojo.BookActicleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from book_acticle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from book_acticle
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from book_acticle
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tata.pojo.BookActicleExample" >
+    delete from book_acticle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tata.pojo.BookActicle" >
+    insert into book_acticle (id, bookId, idx, 
+      digest, bookUUID, title, 
+      size, rawUrl, source, 
+      status)
+    values (#{id,jdbcType=BIGINT}, #{bookid,jdbcType=BIGINT}, #{idx,jdbcType=INTEGER}, 
+      #{digest,jdbcType=VARCHAR}, #{bookuuid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{size,jdbcType=INTEGER}, #{rawurl,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tata.pojo.BookActicle" >
+    insert into book_acticle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bookid != null" >
+        bookId,
+      </if>
+      <if test="idx != null" >
+        idx,
+      </if>
+      <if test="digest != null" >
+        digest,
+      </if>
+      <if test="bookuuid != null" >
+        bookUUID,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="rawurl != null" >
+        rawUrl,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="idx != null" >
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="digest != null" >
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="bookuuid != null" >
+        #{bookuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="rawurl != null" >
+        #{rawurl,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tata.pojo.BookActicleExample" resultType="java.lang.Integer" >
+    select count(*) from book_acticle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update book_acticle
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.bookid != null" >
+        bookId = #{record.bookid,jdbcType=BIGINT},
+      </if>
+      <if test="record.idx != null" >
+        idx = #{record.idx,jdbcType=INTEGER},
+      </if>
+      <if test="record.digest != null" >
+        digest = #{record.digest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookuuid != null" >
+        bookUUID = #{record.bookuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=INTEGER},
+      </if>
+      <if test="record.rawurl != null" >
+        rawUrl = #{record.rawurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update book_acticle
+    set id = #{record.id,jdbcType=BIGINT},
+      bookId = #{record.bookid,jdbcType=BIGINT},
+      idx = #{record.idx,jdbcType=INTEGER},
+      digest = #{record.digest,jdbcType=VARCHAR},
+      bookUUID = #{record.bookuuid,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=INTEGER},
+      rawUrl = #{record.rawurl,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tata.pojo.BookActicle" >
+    update book_acticle
+    <set >
+      <if test="bookid != null" >
+        bookId = #{bookid,jdbcType=BIGINT},
+      </if>
+      <if test="idx != null" >
+        idx = #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="digest != null" >
+        digest = #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="bookuuid != null" >
+        bookUUID = #{bookuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="rawurl != null" >
+        rawUrl = #{rawurl,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tata.pojo.BookActicle" >
+    update book_acticle
+    set bookId = #{bookid,jdbcType=BIGINT},
+      idx = #{idx,jdbcType=INTEGER},
+      digest = #{digest,jdbcType=VARCHAR},
+      bookUUID = #{bookuuid,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      size = #{size,jdbcType=INTEGER},
+      rawUrl = #{rawurl,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

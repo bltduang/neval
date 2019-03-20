@@ -1,0 +1,5 @@
+com\blt\mapper\BookClassifyMapper.class
+com\blt\mapper\BookActicleMapper.class
+com\blt\mapper\BookContentMapper.class
+com\blt\mapper\BookGenreMapper.class
+com\blt\mapper\BookClassifyIndexMapper.class

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tata.mapper.BookClassifyIndexMapper" >
+  <resultMap id="BaseResultMap" type="com.tata.pojo.BookClassifyIndex" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="classify_id" property="classifyId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="imgUrl" property="imgurl" jdbcType="VARCHAR" />
+    <result column="categoryCode" property="categorycode" jdbcType="INTEGER" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="BIGINT" />
+    <result column="chapterNum" property="chapternum" jdbcType="INTEGER" />
+    <result column="bookType" property="booktype" jdbcType="VARCHAR" />
+    <result column="topNum" property="topnum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tata.pojo.BookClassifyIndex" extends="BaseResultMap" >
+    <result column="subtitle" property="subtitle" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, classify_id, title, author, imgUrl, categoryCode, category, updateTime, chapterNum, 
+    bookType, topNum
+  </sql>
+  <sql id="Blob_Column_List" >
+    subtitle
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.tata.pojo.BookClassifyIndexExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from book_classify_index
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tata.pojo.BookClassifyIndexExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from book_classify_index
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from book_classify_index
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from book_classify_index
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tata.pojo.BookClassifyIndexExample" >
+    delete from book_classify_index
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tata.pojo.BookClassifyIndex" >
+    insert into book_classify_index (id, classify_id, title, 
+      author, imgUrl, categoryCode, 
+      category, updateTime, chapterNum, 
+      bookType, topNum, subtitle
+      )
+    values (#{id,jdbcType=BIGINT}, #{classifyId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, #{categorycode,jdbcType=INTEGER}, 
+      #{category,jdbcType=VARCHAR}, #{updatetime,jdbcType=BIGINT}, #{chapternum,jdbcType=INTEGER}, 
+      #{booktype,jdbcType=VARCHAR}, #{topnum,jdbcType=INTEGER}, #{subtitle,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tata.pojo.BookClassifyIndex" >
+    insert into book_classify_index
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="classifyId != null" >
+        classify_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="imgurl != null" >
+        imgUrl,
+      </if>
+      <if test="categorycode != null" >
+        categoryCode,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="chapternum != null" >
+        chapterNum,
+      </if>
+      <if test="booktype != null" >
+        bookType,
+      </if>
+      <if test="topnum != null" >
+        topNum,
+      </if>
+      <if test="subtitle != null" >
+        subtitle,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="classifyId != null" >
+        #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null" >
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="categorycode != null" >
+        #{categorycode,jdbcType=INTEGER},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="chapternum != null" >
+        #{chapternum,jdbcType=INTEGER},
+      </if>
+      <if test="booktype != null" >
+        #{booktype,jdbcType=VARCHAR},
+      </if>
+      <if test="topnum != null" >
+        #{topnum,jdbcType=INTEGER},
+      </if>
+      <if test="subtitle != null" >
+        #{subtitle,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tata.pojo.BookClassifyIndexExample" resultType="java.lang.Integer" >
+    select count(*) from book_classify_index
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update book_classify_index
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.classifyId != null" >
+        classify_id = #{record.classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgurl != null" >
+        imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categorycode != null" >
+        categoryCode = #{record.categorycode,jdbcType=INTEGER},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="record.chapternum != null" >
+        chapterNum = #{record.chapternum,jdbcType=INTEGER},
+      </if>
+      <if test="record.booktype != null" >
+        bookType = #{record.booktype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.topnum != null" >
+        topNum = #{record.topnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.subtitle != null" >
+        subtitle = #{record.subtitle,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update book_classify_index
+    set id = #{record.id,jdbcType=BIGINT},
+      classify_id = #{record.classifyId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      categoryCode = #{record.categorycode,jdbcType=INTEGER},
+      category = #{record.category,jdbcType=VARCHAR},
+      updateTime = #{record.updatetime,jdbcType=BIGINT},
+      chapterNum = #{record.chapternum,jdbcType=INTEGER},
+      bookType = #{record.booktype,jdbcType=VARCHAR},
+      topNum = #{record.topnum,jdbcType=INTEGER},
+      subtitle = #{record.subtitle,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update book_classify_index
+    set id = #{record.id,jdbcType=BIGINT},
+      classify_id = #{record.classifyId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      categoryCode = #{record.categorycode,jdbcType=INTEGER},
+      category = #{record.category,jdbcType=VARCHAR},
+      updateTime = #{record.updatetime,jdbcType=BIGINT},
+      chapterNum = #{record.chapternum,jdbcType=INTEGER},
+      bookType = #{record.booktype,jdbcType=VARCHAR},
+      topNum = #{record.topnum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tata.pojo.BookClassifyIndex" >
+    update book_classify_index
+    <set >
+      <if test="classifyId != null" >
+        classify_id = #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null" >
+        imgUrl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="categorycode != null" >
+        categoryCode = #{categorycode,jdbcType=INTEGER},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=BIGINT},
+      </if>
+      <if test="chapternum != null" >
+        chapterNum = #{chapternum,jdbcType=INTEGER},
+      </if>
+      <if test="booktype != null" >
+        bookType = #{booktype,jdbcType=VARCHAR},
+      </if>
+      <if test="topnum != null" >
+        topNum = #{topnum,jdbcType=INTEGER},
+      </if>
+      <if test="subtitle != null" >
+        subtitle = #{subtitle,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tata.pojo.BookClassifyIndex" >
+    update book_classify_index
+    set classify_id = #{classifyId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      imgUrl = #{imgurl,jdbcType=VARCHAR},
+      categoryCode = #{categorycode,jdbcType=INTEGER},
+      category = #{category,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=BIGINT},
+      chapterNum = #{chapternum,jdbcType=INTEGER},
+      bookType = #{booktype,jdbcType=VARCHAR},
+      topNum = #{topnum,jdbcType=INTEGER},
+      subtitle = #{subtitle,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tata.pojo.BookClassifyIndex" >
+    update book_classify_index
+    set classify_id = #{classifyId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      imgUrl = #{imgurl,jdbcType=VARCHAR},
+      categoryCode = #{categorycode,jdbcType=INTEGER},
+      category = #{category,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=BIGINT},
+      chapterNum = #{chapternum,jdbcType=INTEGER},
+      bookType = #{booktype,jdbcType=VARCHAR},
+      topNum = #{topnum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

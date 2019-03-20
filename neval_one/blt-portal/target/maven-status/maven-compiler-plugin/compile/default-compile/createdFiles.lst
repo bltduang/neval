@@ -1,0 +1,8 @@
+com\blt\portal\controller\IndexController.class
+com\blt\portal\controller\DetailsController.class
+com\blt\portal\service\BookActicleService.class
+com\blt\portal\service\BookActicleServiceImpl.class
+com\blt\portal\service\BookContentServiceImpl.class
+com\blt\portal\controller\ReadController.class
+com\blt\portal\controller\CategoryController.class
+com\blt\portal\service\BookContentService.class
